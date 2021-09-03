@@ -1,12 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <title>Search Results</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Search Results</title>
-</head>
+  <body>
+    <div class="card">
+      <input type="text" placeholder="Location" />
+      <input type="text" placeholder="Activity" />
+      <button type="submit" class="newBtn">New Search</button>
+    </div>
 
-<body>
+    <div class="card">
+      <h4>Search Results: <span id="repo-search-term"></span></h4>
+      <div id="repos-container" class="list-group"></div>
+    </div>
+
+    <div>
+      <h4>Recent Searches: <span id="repo-search-term"></span></h4>
+      <div id="repos-container" class="list-group"></div>
+    </div>
+
+    <div>
+      <!-- forcast -->
+    </div>
+
+    <div>
+      <!-- weather map -->
+    </div>
+
+    <div>
+      <!-- Webcam -->
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     
-</body>
+  </body>
+</html>
