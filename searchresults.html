@@ -3,40 +3,98 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
     <title>Search Results</title>
   </head>
 
   <body>
-    <div class="card">
-      <input type="text" placeholder="Location" />
-      <input type="text" placeholder="Activity" />
-      <button type="submit" class="newBtn">New Search</button>
-    </div>
 
-    <div class="card">
-      <h4>Search Results: <span id="repo-search-term"></span></h4>
-      <div id="repos-container" class="list-group"></div>
-    </div>
+    <div class="container">
+      <div class="row">
+        <div class="card col s3">
+          <!-- Location Dropdown Menu -->
+          <select class="browser-default">
+            <option value="" disabled selected>Choose your state</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+          </select>
 
-    <div>
-      <h4>Recent Searches: <span id="repo-search-term"></span></h4>
-      <div id="repos-container" class="list-group"></div>
-    </div>
+          <!-- Activity Dropdown Menu -->
+          <select class="browser-default">
+            <option value="" disabled selected>Choose your Activity</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+          </select>
 
-    <div>
-      <!-- forcast -->
-    </div>
+          <!-- New Search button -->
+          <button
+            class="btn waves-effect waves-light"
+            type="submit"
+            name="action"
+          >
+            New Search<i class="material-icons right">send</i>
+          </button>
 
-    <div>
-      <!-- weather map -->
-    </div>
+          <!-- Recent Seraches display Container-->
+          <div id="repos-container">
+            <h5>Recent Searches: <span id="repo-search-term"></span></h5>
+          </div>
+        </div>
 
-    <div>
-      <!-- Webcam -->
-    </div>
+        <!-- Search result display Container-->
+        <div class="col s6">
+          <h4>Search Results: <span id="repo-search-term"></span></h4>
+          <div id="repos-container" class="list-group"></div>
+        </div>
 
+        <div class="col s3">
+          <section class="card">
+            Something here to take up space
+
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+
+            <!-- forcast -->
+          </section>
+
+          <section class="card">
+            Something here to take up space
+
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+
+            <!-- weather map -->
+          </section>
+
+          <section class="card">
+            Something here to take up space
+
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+
+            <!-- recent photo -->
+          </section>
+        </div>
+      </div>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    
   </body>
 </html>
