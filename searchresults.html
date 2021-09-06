@@ -3,40 +3,127 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
     <title>Search Results</title>
   </head>
 
   <body>
-    <div class="card">
-      <input type="text" placeholder="Location" />
-      <input type="text" placeholder="Activity" />
-      <button type="submit" class="newBtn">New Search</button>
-    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col l3 s12">
+          <!-- Location Dropdown Menu -->
+          <select class="browser-default dropdownBox">
+            <option data-state="" disabled selected>Choose Your State</option>
+            <option data-state="AL">Alabama</option>
+            <option data-state="AK">Alaska</option>
+            <option data-state="AZ">Arizona</option>
+            <option data-state="AR">Arkansas</option>
+            <option data-state="CA">California</option>
+            <option data-state="CO">Colorado</option>
+            <option data-state="CT">Connecticut</option>
+            <option data-state="DE">Delaware</option>
+            <option data-state="FL">Florida</option>
+            <option data-state="GA">Georgia</option>
+            <option data-state="HI">Hawaii</option>
+            <option data-state="ID">Idaho</option>
+            <option data-state="IL">Illinois</option>
+            <option data-state="IN">Indiana</option>
+            <option data-state="IA">Iowa</option>
+            <option data-state="KS">Kansas</option>
+            <option data-state="KY">Kentucky</option>
+            <option data-state="LA">Louisiana</option>
+            <option data-state="ME">Maine</option>
+            <option data-state="MD">Maryland</option>
+            <option data-state="MA">Massachusetts</option>
+            <option data-state="MI">Michigan</option>
+            <option data-state="MN">Minnesota</option>
+            <option data-state="MS">Mississippi</option>
+            <option data-state="MO">Missouri</option>
+            <option data-state="MT">Montana</option>
+            <option data-state="NE">Nebraska</option>
+            <option data-state="NV">Nevada</option>
+            <option data-state="NH">New Hampshire</option>
+            <option data-state="NJ">New Jersey</option>
+            <option data-state="NM">New Mexico</option>
+            <option data-state="NY">New York</option>
+            <option data-state="NC">North Carolina</option>
+            <option data-state="ND">North Dakota</option>
+            <option data-state="OH">Ohio</option>
+            <option data-state="OK">Oklahoma</option>
+            <option data-state="OR">Oregon</option>
+            <option data-state="PA">Pennsylvania</option>
+            <option data-state="RI">Rhode Island</option>
+            <option data-state="SC">South Carolina</option>
+            <option data-state="SD">South Dakota</option>
+            <option data-state="TN">Tennessee</option>
+            <option data-state="TX">Texas</option>
+            <option data-state="UT">Utah</option>
+            <option data-state="VT">Vermont</option>
+            <option data-state="VA">Virginia</option>
+            <option data-state="WA">Washington</option>
+            <option data-state="WV">West Virginia</option>
+            <option data-state="WI">Wisconsin</option>
+            <option data-state="WY">Wyoming</option>
+          </select>
 
-    <div class="card">
-      <h4>Search Results: <span id="repo-search-term"></span></h4>
-      <div id="repos-container" class="list-group"></div>
-    </div>
+          <!-- Activity Dropdown Menu -->
+          <select class="browser-default dropdownBox">
+            <option value="" disabled selected>Choose Your Activity</option>
+            <option value="hiking">Hiking</option>
+            <option value="camping">Camping</option>
+            <option value="swimming">Swimming</option>
+            <option value="fishing">Fishing</option>
+            <option value="skiing">Skiing</option>
+            <option value="boating">Boating</option>
+          </select>
 
-    <div>
-      <h4>Recent Searches: <span id="repo-search-term"></span></h4>
-      <div id="repos-container" class="list-group"></div>
-    </div>
+          <!-- New Search button -->
+          <button
+            class="btn waves-effect waves-light saveBtn"
+            type="submit"
+            name="action"
+          >
+            New Search<i class="material-icons right">send</i>
+          </button>
 
-    <div>
-      <!-- forcast -->
-    </div>
+          <!-- Recent Seraches display Container-->
+          <div id="repos-container">
+            <h5>Recent Searches: <span id="repo-search-term"></span></h5>
+          </div>
+        </div>
 
-    <div>
-      <!-- weather map -->
-    </div>
+        <!-- Search result display Container-->
+        <div class="col l6 s12">
+          <h4>Search Results: <span id="repo-search-term"></span></h4>
+          <div id="repos-container" class="list-group"></div>
+        </div>
 
-    <div>
-      <!-- Webcam -->
-    </div>
+        <div class="col l3 s12">
+          <section class="card">
+            <!-- forcast -->
+            Forcast goes here
+          </section>
 
+          <section class="card">
+            <!-- weather map -->
+            Weather map goes here
+          </section>
+
+          <section class="card">
+            <!-- recent photo -->
+            current webcam Photo goes here
+          </section>
+        </div>
+      </div>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    
   </body>
 </html>
