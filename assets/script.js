@@ -7,10 +7,10 @@
 let stateSelection = document.getElementById('stateSelection');
 let activitySelection = document.getElementById('activitySelection');
 let resultsContainer = document.getElementById('resultsContainer');
-let result = document.querySelectorAll('.result');
 let saveBtn = document.querySelector('.saveBtn');
 
 //global variables
+let result;
 let results;
 let stateCode;
 let activity;
@@ -18,19 +18,13 @@ let selectedParks = [];
 
 //Display the results into the Search Results section
 let displayResults = function() {
-    //Destroy previous results first
-    if(result.length > 0) {
-        for(let i = 0; i < result.length; i++) {
-            result[i].remove();
-        }
-    }
 
     //Display new results
     for(let i = 0; i < selectedParks.length; i++) {
         
         //Create card for each result
         let resultBox = document.createElement('div');
-        resultBox.classList.add('card','result')
+        resultBox.classList.add('card','result');
         resultsContainer.appendChild(resultBox);
 
         //Display Park title
@@ -94,11 +88,25 @@ let getParksInfo = function() {
         });
 };
 
+//Destroy past results from page and array
+let destroyResults = function() {
+
+    //Destroy previous results from DOM
+    while(resultsContainer.firstChild) {
+        resultsContainer.removeChild(resultsContainer.firstChild);
+    }
+
+    //Destroy results from selectedParks array
+    selectedParks.splice(0,selectedParks.length);
+}
+
 //Event Listeners
 saveBtn.addEventListener('click',function(event) {
     event.preventDefault();
+
     stateCode = stateSelection.value;
     activity = activitySelection.value;
 
+    destroyResults();
     getParksInfo();
 })
