@@ -1,6 +1,11 @@
 body {
     margin-top: 1rem;
     background-color: rgb(241, 238, 238);
+
+}
+
+body {
+    background: url(./Pictures/denali-mtn-range.jpg)
 }
   
 .card {
