@@ -16,8 +16,9 @@
   </head>
 
   <body>
-    <div class="container">
-      <div class="row">
+    
+    <div class="container row">
+
         <div class="col l3 s12">
           <!-- Location Dropdown Menu -->
           <select id="stateSelection" class="browser-default dropdownBox">
@@ -95,18 +96,20 @@
           </button>
 
           <!-- Recent Seraches display Container-->
-          <div id="repos-container">
+          <section id="repos-container">
             <h5>Recent Searches: <span id="repo-search-term"></span></h5>
-          </div>
+          </section>
         </div>
 
         <!-- Search result display Container-->
-        <div class="col l6 s12">
+        <div class="col l9 s12">
+          <div class=row>
+            <div class="col l8 s12">
           <h4>Search Results: <span id="repo-search-term"></span></h4>
           <div id="resultsContainer" class="list-group"></div>
         </div>
+            <div class="col l3 s12">
 
-        <div class="col l3 s12">
           <section class="card">
             <!-- forcast -->
             Forcast goes here
@@ -121,7 +124,8 @@
             <!-- recent photo -->
             current webcam Photo goes here
           </section>
-        </div>
+        </div></div> </div>
+      </div>
       </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
