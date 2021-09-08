@@ -8,12 +8,13 @@ let stateSelection = document.getElementById('stateSelection');
 let activitySelection = document.getElementById('activitySelection');
 let resultsContainer = document.getElementById('resultsContainer');
 let result = document.querySelectorAll('.result');
+let saveBtn = document.querySelector('.saveBtn');
 
 //global variables
 let results;
 let stateCode;
 let activity;
-let selectedParks = []; //will be array of objects of parks selected by user to be able to display as search results
+let selectedParks = [];
 
 //Display the results into the Search Results section
 let displayResults = function() {
@@ -47,7 +48,7 @@ let displayResults = function() {
         infoList.appendChild(parkLink);
 
         let parkLocation = document.createElement('li');
-        parkLocation.textContent = selectedParks[i].parkAddress.line1 + ', ' + selectedParks[i].parkAddress.city;
+        parkLocation.textContent = selectedParks[i].parkAddress.line1 + ', ' + selectedParks[i].parkAddress.city + ', ' + selectedParks[i].parkAddress.stateCode + selectedParks[i].parkAddress.postalCode;
         infoList.appendChild(parkLocation);
     }
 
@@ -93,6 +94,11 @@ let getParksInfo = function() {
         });
 };
 
-stateCode = 'OH';
-activity = 'Hiking';
-getParksInfo();
+//Event Listeners
+saveBtn.addEventListener('click',function(event) {
+    event.preventDefault();
+    stateCode = stateSelection.value;
+    activity = activitySelection.value;
+
+    getParksInfo();
+})
