@@ -1,25 +1,25 @@
 body {
     margin-top: 1rem;
     background-color: rgb(241, 238, 238);
-  }
+}
   
-  .card {
+.card {
     min-height: 15rem;
     min-width: 15rem;
     flex: auto;
     flex-wrap: nowrap;
     justify-content: center;
-  }
+}
   
-  .saveBtn {
+.saveBtn {
     margin-top: 1rem;
-  }
+}
   
-  .dropdownBox {
+.dropdownBox {
     margin-top: 1rem;
-  }
+}
   
-  .card{
+#startCard {
     background-color: rgb(241,238,238);
     margin-top: 60%;
 }
