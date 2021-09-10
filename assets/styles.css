@@ -4,27 +4,43 @@ body {
 
 }
 
-body {
+.picBackground {
     background: url(./Pictures/denali-mtn-range.jpg)
 }
   
 .card {
-    min-height: 15rem;
-    min-width: 15rem;
+    /* min-height: 15rem;
+    min-width: 15rem; */
     flex: auto;
     flex-wrap: nowrap;
     justify-content: center;
 }
-  
-.saveBtn {
-    margin-top: 1rem;
-}
-  
+    
 .dropdownBox {
     margin-top: 1rem;
+    margin-bottom: 1rem;
 }
   
 #startCard {
     background-color: rgb(241,238,238);
     margin-top: 60%;
+}
+
+@media only screen and (max-width: 992px){
+    .row {
+        display:flex;
+        flex-direction: column-reverse;
+
+    }
+    .leftSide{
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+    }
+}
+
+@media only screen and (max-width: 992px){
+    #startCard {
+        margin-top:10%;
+    }
 }

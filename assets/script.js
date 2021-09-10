@@ -138,7 +138,8 @@ resultsContainer.addEventListener('click', function(event) {
 });
 
 
-
-
-
- 
+let resetBtn = document.querySelector(".resetBtn");
+resetBtn.addEventListener("click", refreshPage)
+function refreshPage() {
+    window.location.reload();
+ } 
