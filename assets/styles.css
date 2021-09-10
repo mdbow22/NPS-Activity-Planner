@@ -28,3 +28,18 @@ body {
     background-color: rgb(241,238,238);
     margin-top: 60%;
 }
+
+img {max-width: 100%; height: auto;}
+
+@media (min-device-width : 600px) {
+img [data-src-600px] {
+    content: attr(data-src-600px, url);
+}
+}
+
+@media (min-device-width : 600px) {
+    img [data-src-800px] {
+        content: attr(data-src-800px, url)
+    }
+}
+
