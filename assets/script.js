@@ -1,3 +1,5 @@
+
+
 /***********************
  *** NPS API Queries ***
  ***********************/
@@ -10,6 +12,7 @@ let resultsContainer = document.getElementById('resultsContainer');
 let saveBtn = document.querySelector('.saveBtn');
 
 //global variables
+let target;
 let result;
 let results;
 let stateCode;
@@ -25,6 +28,7 @@ let displayResults = function() {
         //Create card for each result
         let resultBox = document.createElement('div');
         resultBox.classList.add('card','result');
+        resultBox.setAttribute('data-resnum',i);
         resultsContainer.appendChild(resultBox);
 
         //Display Park title
@@ -98,9 +102,24 @@ let destroyResults = function() {
 
     //Destroy results from selectedParks array
     selectedParks.splice(0,selectedParks.length);
-}
+};
+
+let getWebCam = function() {
+
+};
+
+/****************************
+ * OPEN WEATHER API QUERIES *
+ ****************************/
+
+let getWeather = function() {
+    let weatherURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + clickedPark.parkLat + '&lon=' + clickedPark.parkLon + '&exclude=hourly,minutely,alerts&appid=3e8fd441ffe94cd1d1f73c4d27b77283';
+    console.log(weatherURL);
+};
 
 //Event Listeners
+
+//Perform Search
 saveBtn.addEventListener('click',function(event) {
     event.preventDefault();
 
@@ -109,4 +128,17 @@ saveBtn.addEventListener('click',function(event) {
 
     destroyResults();
     getParksInfo();
-})
+});
+
+//Show Map, Weather, and webcam image of park
+resultsContainer.addEventListener('click', function(event) {
+    clickedPark = selectedParks[event.target.dataset.resnum];
+    getWeather();
+    getWebCam();
+});
+
+
+
+
+
+ 
