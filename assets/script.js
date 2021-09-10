@@ -110,3 +110,9 @@ saveBtn.addEventListener('click',function(event) {
     destroyResults();
     getParksInfo();
 })
+
+let resetBtn = document.querySelector(".resetBtn");
+resetBtn.addEventListener("click", refreshPage)
+function refreshPage() {
+    window.location.reload();
+ } 
