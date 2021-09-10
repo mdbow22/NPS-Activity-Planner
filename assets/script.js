@@ -103,10 +103,12 @@ let destroyResults = function() {
 //Event Listeners
 saveBtn.addEventListener('click',function(event) {
     event.preventDefault();
-
+    window.location.replace("./searchresults.html");
+    
     stateCode = stateSelection.value;
     activity = activitySelection.value;
 
     destroyResults();
     getParksInfo();
+
 })
