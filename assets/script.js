@@ -3,13 +3,13 @@
 /***********************
  *** NPS API Queries ***
  ***********************/
-//global variables
-let clickedPark;
-let target;
-let curResults = [];
+
+ //global variables
 let stateCode;
 let activity;
 let selectedParks = [];
+let curResults = [];
+let imagesArray;
 
 //Selectors
 
@@ -17,10 +17,16 @@ let stateSelection = document.getElementById('stateSelection');
 let activitySelection = document.getElementById('activitySelection');
 let resultsContainer = document.getElementById('resultsContainer');
 let saveBtn = document.querySelector('.saveBtn');
+let webCamEl = document.getElementById('webCamImg');
+let camCardEl = document.getElementById('webCamCard');
 
+//Function to be called by event listener in selectResults function
 let getSideData = function(park) {
+    //fetch the weather
     getWeather(park.parkLat,park.parkLon);
-    //getWebCam(park.parkCode);
+    
+    //fetch a webcam image if it exists
+    getWebCam(park.parkCode);
 }
 
 //Select Results each time new results are loaded and add event listener for displaying weather and webcam image
@@ -127,26 +133,65 @@ let destroyResults = function() {
 
 };
 
-function getWebCam() {
-
-}
+function getWebCam(parkCode) {
+    let webCamURL = 'https://developer.nps.gov/api/v1/webcams?api_key=0lew12ln17nmn2hAVOHsfsFPOuTsd5Vym9rII7jp&parkCode=' + parkCode;
+    fetch(webCamURL)
+        .then(function(response) {
+            if(response.status === 200) {
+                return response.json();
+            } else {
+                camCardEl.style.display = 'none';
+            }
+        })
+        .then(function(data) {
+            console.log(data);
+            if(data.data.length > 0) {
+                if(data.data[0].images.length > 0) {
+                    camCardEl.style.display = 'block';
+                    webCamEl.setAttribute('src',data.data[0].images[0].url);
+                    webCamEl.style.aspectRatio = '1.33/1';
+                } else {
+                    camCardEl.style.display = 'none';
+                }
+            } else {
+                camCardEl.style.display = 'none';
+            }
+        });
+};
 
 /****************************
  * OPEN WEATHER API QUERIES *
  ****************************/
 
+//Weather Selectors
+let iconEl = document.getElementById('weatherIcon');
+let curTempEl = document.getElementById('curTemp');
+let feelsLikeEl = document.getElementById('feelsLike');
+let uvEl = document.getElementById('uvIndex');
+let lowEl = document.getElementById('low');
+let highEl = document.getElementById('high');
+
+//Display the current weather
+let displayWeather = function(current,today) {
+    iconEl.setAttribute('src','http://openweathermap.org/img/wn/' + current.weather[0].icon + '@2x.png');
+    curTempEl.textContent = 'Currently: ' + Math.round(current.temp);
+    feelsLikeEl.textContent = 'Feels like ' + Math.round(current.feels_like);
+    uvEl.textContent = 'UV Index: ' + current.uvi;
+    lowEl.textContent = 'Low: ' + Math.round(today.temp.min);
+    highEl.textContent = 'High: ' + Math.round(today.temp.max);
+};
+
+//Fetch current weather conditions
 function getWeather(lat,lon) {
-    let weatherURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude=hourly,minutely,alerts&appid=3e8fd441ffe94cd1d1f73c4d27b77283';
-    console.log(weatherURL);
+    let weatherURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude=hourly,minutely,alerts&appid=3e8fd441ffe94cd1d1f73c4d27b77283&units=imperial';
     fetch(weatherURL)
         .then(function(response) {
-            console.log(response.status);
             if(response.status === 200) {
                 return response.json();
             }
         })
         .then(function(data) {
-            console.log(data);
+            displayWeather(data.current,data.daily[0]);
         });
 }
 
@@ -162,10 +207,6 @@ saveBtn.addEventListener('click',function(event) {
     destroyResults();
     getParksInfo();
 });
-
-//Show Map, Weather, and webcam image of park
-
-
 
 let resetBtn = document.querySelector(".resetBtn");
 resetBtn.addEventListener("click", refreshPage)
