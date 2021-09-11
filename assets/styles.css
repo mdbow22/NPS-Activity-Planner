@@ -15,6 +15,14 @@ body {
     flex-wrap: nowrap;
     justify-content: center;
 }
+
+#webCamCard {
+    width: 250px;
+}
+#webCamImg {
+    width: 100%;
+    margin: 0;
+}
     
 .dropdownBox {
     margin-top: 1rem;
