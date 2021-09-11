@@ -211,9 +211,7 @@ searchBtn.addEventListener('click',function(event) {
     getParksInfo();
 });
 
-
-
- window.addEventListener("load", function(event) {
+window.addEventListener("load", function(event) {
      console.log ("Is this working?")
 
      let searchURL = new URL(document.location);
@@ -223,7 +221,8 @@ searchBtn.addEventListener('click',function(event) {
 
 
      getParksInfo();
- })
+})
+
 // reset button on search results page, on click, refreshes screen
 let resetBtn = document.querySelector(".resetBtn");
 resetBtn.addEventListener("click", refreshPage)
@@ -246,11 +245,13 @@ searchBtn.onclick = function(event) {
     console.log(activity);
 
     if (state && activity) {
-        localStorage.setItem(state, activity);        
+        localStorage.setItem(stateCode, activity);        
         let newHistory = document.createElement('div')
         newHistory.classList.add('card');
-        newHistory.innerHTML += `${activitySelection.value} in ${stateSelection.value.slice(3)}`;
+        newHistory.innerHTML += `${activitySelection.value} in ${stateSelection.value.slice(2)}`;
         lsOutput.prepend(newHistory);
+        newHistory.setAttribute('data-state', state.slice(0, 2));
+        newHistory.setAttribute('data-activity', activity);
     }
 }
 
@@ -261,9 +262,22 @@ pageLoad = function() {
 
         historyBox = document.createElement('div');
         historyBox.classList.add('card');
-        historyBox.innerHTML += `${activity} in  ${state.slice(3)}`;
+        historyBox.innerHTML += `${activity} in ${state.slice(2)}`;
         lsOutput.prepend(historyBox);
+        historyBox.setAttribute('data-state', state.slice(0, 2));
+        historyBox.setAttribute('data-activity', activity);
     }
 }
-
 pageLoad();
+
+lsOutput.addEventListener('click', function(event){
+
+    stateCode = event.target.dataset.state;
+    activity = event.target.dataset.activity;
+
+    destroyResults();
+
+    getParksInfo(); 
+})
+
+
