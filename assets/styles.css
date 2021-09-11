@@ -12,8 +12,13 @@ body {
     /* min-height: 15rem;
     min-width: 15rem; */
     flex: auto;
+    padding: 10px;
     flex-wrap: nowrap;
     justify-content: center;
+}
+
+li{
+    border-spacing: 10px;
 }
     
 .dropdownBox {
