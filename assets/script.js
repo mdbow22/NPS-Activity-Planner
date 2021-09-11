@@ -16,7 +16,8 @@ let imagesArray;
 let stateSelection = document.getElementById('stateSelection');
 let activitySelection = document.getElementById('activitySelection');
 let resultsContainer = document.getElementById('resultsContainer');
-let saveBtn = document.querySelector('.saveBtn');
+let searchBtn = document.querySelector('.searchBtn');
+
 let webCamEl = document.getElementById('webCamImg');
 let camCardEl = document.getElementById('webCamCard');
 
@@ -197,10 +198,12 @@ function getWeather(lat,lon) {
 
 //Event Listeners
 
-//Perform Search
-saveBtn.addEventListener('click',function(event) {
-    event.preventDefault();
 
+searchBtn.addEventListener('click',function(event) {
+    event.preventDefault();
+    console.log("Did this work?")
+
+    
     stateCode = stateSelection.value;
     activity = activitySelection.value;
 
@@ -208,6 +211,19 @@ saveBtn.addEventListener('click',function(event) {
     getParksInfo();
 });
 
+
+
+ window.addEventListener("load", function(event) {
+     console.log ("Is this working?")
+
+     let searchURL = new URL(document.location);
+
+     stateCode = searchURL.searchParams.get("q");
+     activity = searchURL.searchParams.get("format");
+
+
+     getParksInfo();
+ })
 // reset button on search results page, on click, refreshes screen
 let resetBtn = document.querySelector(".resetBtn");
 resetBtn.addEventListener("click", refreshPage)
@@ -219,7 +235,7 @@ function refreshPage() {
 
 let lsOutput = document.getElementById('lsOutput');
 
-saveBtn.onclick = function(event) {
+searchBtn.onclick = function(event) {
     const state = stateSelection.value;
     const activity = activitySelection.value;
 
