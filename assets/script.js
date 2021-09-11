@@ -122,27 +122,35 @@ function refreshPage() {
 
 let lsOutput = document.getElementById('lsOutput');
 
-saveBtn.onclick = function() {
+saveBtn.onclick = function(event) {
     const state = stateSelection.value;
     const activity = activitySelection.value;
+
+    event.preventDefault();
 
     console.log(state);
     console.log(activity);
 
     if (state && activity) {
-        localStorage.setItem(state, activity);
-        // location.reload();
+        localStorage.setItem(state, activity);        
+        lsOutput.innerHTML += `${activitySelection.value} in ${stateSelection.value.slice(3)} <br/>`;
     }
 
+}
+
+pageLoad = function() {
     for (let i = 0; i <localStorage.length; i++) {
         const state = localStorage.key(i);
         const activity = localStorage.getItem(state);
 
         let historyBox = document.createElement('div');
-        historyBox.classList.add('card','result');
-        lsOutput.appendChild(historyBox);
+        historyBox.classList.add('card');
+        
 
 
-        lsOutput.innerHTML += `${state}: ${activity}<br/>`;
+        lsOutput.innerHTML += `${activity} in  ${state.slice(3)}<br/>`;
+
     }
 }
+
+pageLoad();
