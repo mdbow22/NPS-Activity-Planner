@@ -218,6 +218,7 @@ function refreshPage() {
 //Local storage
 
 let lsOutput = document.getElementById('lsOutput');
+let historyBox;
 
 saveBtn.onclick = function(event) {
     const state = stateSelection.value;
@@ -230,9 +231,11 @@ saveBtn.onclick = function(event) {
 
     if (state && activity) {
         localStorage.setItem(state, activity);        
-        lsOutput.innerHTML += `${activitySelection.value} in ${stateSelection.value.slice(3)} <br/>`;
+        let newHistory = document.createElement('div')
+        newHistory.classList.add('card');
+        newHistory.innerHTML += `${activitySelection.value} in ${stateSelection.value.slice(3)}`;
+        lsOutput.prepend(newHistory);
     }
-
 }
 
 pageLoad = function() {
@@ -240,13 +243,10 @@ pageLoad = function() {
         const state = localStorage.key(i);
         const activity = localStorage.getItem(state);
 
-        let historyBox = document.createElement('div');
+        historyBox = document.createElement('div');
         historyBox.classList.add('card');
-        
-
-
-        lsOutput.innerHTML += `${activity} in  ${state.slice(3)}<br/>`;
-
+        historyBox.innerHTML += `${activity} in  ${state.slice(3)}`;
+        lsOutput.prepend(historyBox);
     }
 }
 
