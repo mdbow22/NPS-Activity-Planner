@@ -25,6 +25,15 @@ li{
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
+
+#webCamCard {
+    width: 250px;
+}
+
+#webCamImg {
+    width: 100%;
+    margin: 0;
+}
   
 #startCard {
     background-color: rgb(241,238,238);
