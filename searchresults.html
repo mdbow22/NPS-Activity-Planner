@@ -88,12 +88,21 @@
 
           <!-- New Search button -->
           <button
-            class="btn waves-effect waves-light saveBtn"
+            class="btn waves-effect waves-light searchBtn"
             type="submit"
             name="action"
           >
             New Search<i class="material-icons right">send</i>
           </button>
+
+          <button
+          class="btn waves-effect waves-light resetBtn"
+          type="submit"
+          name="action"
+        >
+          Reset
+        </button>
+
 
           <!-- Recent Seraches display Container-->
           <section id="repos-container">
@@ -103,7 +112,7 @@
 
         <!-- Search result display Container-->
         <div class="col l9 s12">
-          <div class=row>
+          <div class="row leftSide" >
             <div class="col l8 s12">
           <h4>Search Results: <span id="repo-search-term"></span></h4>
           <div id="resultsContainer" class="list-group"></div>
@@ -129,6 +138,6 @@
       </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="./assets/script.js"></script>
+    <script src="assets/script.js"></script>
   </body>
 </html>

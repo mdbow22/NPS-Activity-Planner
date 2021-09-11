@@ -7,7 +7,8 @@
 let stateSelection = document.getElementById('stateSelection');
 let activitySelection = document.getElementById('activitySelection');
 let resultsContainer = document.getElementById('resultsContainer');
-let saveBtn = document.querySelector('.saveBtn');
+let searchBtn = document.querySelector('.searchBtn');
+
 
 //global variables
 let result;
@@ -101,9 +102,12 @@ let destroyResults = function() {
 }
 
 //Event Listeners
-saveBtn.addEventListener('click',function(event) {
+
+
+searchBtn.addEventListener('click',function(event) {
     event.preventDefault();
-    window.location.replace("./searchresults.html");
+    console.log("Did this work?")
+
     
     stateCode = stateSelection.value;
     activity = activitySelection.value;
@@ -112,3 +116,23 @@ saveBtn.addEventListener('click',function(event) {
     getParksInfo();
 
 })
+
+
+
+ let resetBtn = document.querySelector(".resetBtn");
+resetBtn.addEventListener("click", refreshPage)
+function refreshPage() {
+    window.location.reload();
+ }
+
+ window.addEventListener("load", function(event) {
+     console.log ("Is this working?")
+
+     let searchURL = new URL(document.location);
+
+     stateCode = searchURL.searchParams.get("q");
+     activity = searchURL.searchParams.get("format");
+
+     
+     getParksInfo();
+ })
