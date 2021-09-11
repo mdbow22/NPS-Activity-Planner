@@ -46,7 +46,8 @@ let displayResults = function() {
         infoList.appendChild(parkLink);
 
         let parkLocation = document.createElement('li');
-        parkLocation.textContent = selectedParks[i].parkAddress.line1 + ', ' + selectedParks[i].parkAddress.city + ', ' + selectedParks[i].parkAddress.stateCode + selectedParks[i].parkAddress.postalCode;
+        let address = selectedParks[i].parkAddress.line1 + ', ' + selectedParks[i].parkAddress.city + ', ' + selectedParks[i].parkAddress.stateCode + ' ' + selectedParks[i].parkAddress.postalCode;
+        parkLocation.innerHTML = '<a href="https://www.google.com/maps/search/?api=1&query=' + selectedParks[i].parkLat + '%2C' + selectedParks[i].parkLon + '" target="_blank">' + address + '</a>';
         infoList.appendChild(parkLocation);
     }
 
