@@ -144,7 +144,6 @@ function getWebCam(parkCode) {
             }
         })
         .then(function(data) {
-            console.log(data);
             if(data.data.length > 0) {
                 if(data.data[0].images.length > 0) {
                     camCardEl.style.display = 'block';
@@ -170,9 +169,11 @@ let feelsLikeEl = document.getElementById('feelsLike');
 let uvEl = document.getElementById('uvIndex');
 let lowEl = document.getElementById('low');
 let highEl = document.getElementById('high');
+let weatherCard = document.getElementById('weatherCard');
 
 //Display the current weather
 let displayWeather = function(current,today) {
+    weatherCard.style.display = 'block';
     iconEl.setAttribute('src','http://openweathermap.org/img/wn/' + current.weather[0].icon + '@2x.png');
     curTempEl.textContent = 'Currently: ' + Math.round(current.temp);
     feelsLikeEl.textContent = 'Feels like ' + Math.round(current.feels_like);
