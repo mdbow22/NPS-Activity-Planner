@@ -235,7 +235,7 @@ function refreshPage() {
 
 let lsOutput = document.getElementById('lsOutput');
 
-saveBtn.onclick = function(event) {
+searchBtn.onclick = function(event) {
     const state = stateSelection.value;
     const activity = activitySelection.value;
 
