@@ -1,6 +1,15 @@
+
+
 /***********************
  *** NPS API Queries ***
  ***********************/
+
+ //global variables
+let stateCode;
+let activity;
+let selectedParks = [];
+let curResults = [];
+let imagesArray;
 
 //Selectors
 
@@ -9,13 +18,26 @@ let activitySelection = document.getElementById('activitySelection');
 let resultsContainer = document.getElementById('resultsContainer');
 let searchBtn = document.querySelector('.searchBtn');
 
+let webCamEl = document.getElementById('webCamImg');
+let camCardEl = document.getElementById('webCamCard');
 
-//global variables
-let result;
-let results;
-let stateCode;
-let activity;
-let selectedParks = [];
+//Function to be called by event listener in selectResults function
+let getSideData = function(park) {
+    //fetch the weather
+    getWeather(park.parkLat,park.parkLon);
+    
+    //fetch a webcam image if it exists
+    getWebCam(park.parkCode);
+}
+
+//Select Results each time new results are loaded and add event listener for displaying weather and webcam image
+let selectResults = function() {
+    curResults = document.querySelectorAll('.result');
+    for (let i = 0; i < curResults.length; i++) {
+        curResults[i].addEventListener('click', getSideData.bind(null,selectedParks[i]));
+    }
+};
+
 
 //Display the results into the Search Results section
 let displayResults = function() {
@@ -26,6 +48,7 @@ let displayResults = function() {
         //Create card for each result
         let resultBox = document.createElement('div');
         resultBox.classList.add('card','result');
+        resultBox.setAttribute('data-resnum',i);
         resultsContainer.appendChild(resultBox);
 
         //Display Park title
@@ -43,9 +66,12 @@ let displayResults = function() {
         infoList.appendChild(parkLink);
 
         let parkLocation = document.createElement('li');
-        parkLocation.textContent = selectedParks[i].parkAddress.line1 + ', ' + selectedParks[i].parkAddress.city + ', ' + selectedParks[i].parkAddress.stateCode + selectedParks[i].parkAddress.postalCode;
+        let address = selectedParks[i].parkAddress.line1 + ', ' + selectedParks[i].parkAddress.city + ', ' + selectedParks[i].parkAddress.stateCode + ' ' + selectedParks[i].parkAddress.postalCode;
+        parkLocation.innerHTML = '<a href="https://www.google.com/maps/search/?api=1&query=' + selectedParks[i].parkLat + '%2C' + selectedParks[i].parkLon + '" target="_blank">' + address + '</a>';
         infoList.appendChild(parkLocation);
     }
+    //Save current results as an array, then iterate over it to add 
+    selectResults();
 
 };
 
@@ -97,8 +123,77 @@ let destroyResults = function() {
         resultsContainer.removeChild(resultsContainer.firstChild);
     }
 
-    //Destroy results from selectedParks array
+    //Destroy event listeners
+    for (let i = 0; i < curResults.length; i++) {
+        curResults[i].removeEventListener('click', getSideData);
+    }
+
+    //Destroy results from selectedParks array and curResults array
     selectedParks.splice(0,selectedParks.length);
+    /* curResults.splice(0,curResults.length); */
+
+};
+
+function getWebCam(parkCode) {
+    let webCamURL = 'https://developer.nps.gov/api/v1/webcams?api_key=0lew12ln17nmn2hAVOHsfsFPOuTsd5Vym9rII7jp&parkCode=' + parkCode;
+    fetch(webCamURL)
+        .then(function(response) {
+            if(response.status === 200) {
+                return response.json();
+            } else {
+                camCardEl.style.display = 'none';
+            }
+        })
+        .then(function(data) {
+            console.log(data);
+            if(data.data.length > 0) {
+                if(data.data[0].images.length > 0) {
+                    camCardEl.style.display = 'block';
+                    webCamEl.setAttribute('src',data.data[0].images[0].url);
+                    webCamEl.style.aspectRatio = '1.33/1';
+                } else {
+                    camCardEl.style.display = 'none';
+                }
+            } else {
+                camCardEl.style.display = 'none';
+            }
+        });
+};
+
+/****************************
+ * OPEN WEATHER API QUERIES *
+ ****************************/
+
+//Weather Selectors
+let iconEl = document.getElementById('weatherIcon');
+let curTempEl = document.getElementById('curTemp');
+let feelsLikeEl = document.getElementById('feelsLike');
+let uvEl = document.getElementById('uvIndex');
+let lowEl = document.getElementById('low');
+let highEl = document.getElementById('high');
+
+//Display the current weather
+let displayWeather = function(current,today) {
+    iconEl.setAttribute('src','http://openweathermap.org/img/wn/' + current.weather[0].icon + '@2x.png');
+    curTempEl.textContent = 'Currently: ' + Math.round(current.temp);
+    feelsLikeEl.textContent = 'Feels like ' + Math.round(current.feels_like);
+    uvEl.textContent = 'UV Index: ' + current.uvi;
+    lowEl.textContent = 'Low: ' + Math.round(today.temp.min);
+    highEl.textContent = 'High: ' + Math.round(today.temp.max);
+};
+
+//Fetch current weather conditions
+function getWeather(lat,lon) {
+    let weatherURL = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&exclude=hourly,minutely,alerts&appid=3e8fd441ffe94cd1d1f73c4d27b77283&units=imperial';
+    fetch(weatherURL)
+        .then(function(response) {
+            if(response.status === 200) {
+                return response.json();
+            }
+        })
+        .then(function(data) {
+            displayWeather(data.current,data.daily[0]);
+        });
 }
 
 //Event Listeners
@@ -114,8 +209,7 @@ searchBtn.addEventListener('click',function(event) {
 
     destroyResults();
     getParksInfo();
-
-})
+});
 
 
 
@@ -133,6 +227,6 @@ function refreshPage() {
      stateCode = searchURL.searchParams.get("q");
      activity = searchURL.searchParams.get("format");
 
-     
+
      getParksInfo();
  })
