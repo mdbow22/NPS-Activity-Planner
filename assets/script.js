@@ -72,7 +72,6 @@ let displayResults = function() {
     }
     //Save current results as an array, then iterate over it to add 
     selectResults();
-
 };
 
 //retrieve info for parks in selected state (address, lat/long, and parkCode) to be able to do other API queries
