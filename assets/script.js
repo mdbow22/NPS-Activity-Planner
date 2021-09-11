@@ -219,7 +219,6 @@ window.addEventListener("load", function(event) {
      stateCode = searchURL.searchParams.get("q");
      activity = searchURL.searchParams.get("format");
 
-
      getParksInfo();
 })
 
@@ -255,6 +254,7 @@ searchBtn.onclick = function(event) {
     }
 }
 
+//load search history form local storage
 pageLoad = function() {
     for (let i = 0; i <localStorage.length; i++) {
         const state = localStorage.key(i);
@@ -270,13 +270,13 @@ pageLoad = function() {
 }
 pageLoad();
 
+//Click on recent searches and get results
 lsOutput.addEventListener('click', function(event){
 
     stateCode = event.target.dataset.state;
     activity = event.target.dataset.activity;
 
     destroyResults();
-
     getParksInfo(); 
 })
 

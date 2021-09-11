@@ -7,7 +7,11 @@ body {
 .picBackground {
     background: url(./Pictures/denali-mtn-range.jpg)
 }
-  
+
+ol {
+    list-style-type: square;
+}
+
 .card {
     flex: auto;
     flex-wrap: nowrap;
@@ -33,7 +37,7 @@ section {
   
 #startCard {
     background-color: rgb(241,238,238);
-    margin-top: 60%;
+    margin-top: 40%;
 }
 
 @media only screen and (max-width: 992px){
