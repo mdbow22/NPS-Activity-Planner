@@ -20,6 +20,10 @@ body {
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
+
+section {
+    margin-top:2rem;
+}
   
 #startCard {
     background-color: rgb(241,238,238);

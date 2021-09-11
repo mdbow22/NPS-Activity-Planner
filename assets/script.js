@@ -111,8 +111,38 @@ saveBtn.addEventListener('click',function(event) {
     getParksInfo();
 })
 
+// reset button on search results page, on click, refreshes screen
 let resetBtn = document.querySelector(".resetBtn");
 resetBtn.addEventListener("click", refreshPage)
 function refreshPage() {
     window.location.reload();
- } 
+} 
+
+//Local storage
+
+let lsOutput = document.getElementById('lsOutput');
+
+saveBtn.onclick = function() {
+    const state = stateSelection.value;
+    const activity = activitySelection.value;
+
+    console.log(state);
+    console.log(activity);
+
+    if (state && activity) {
+        localStorage.setItem(state, activity);
+        // location.reload();
+    }
+
+    for (let i = 0; i <localStorage.length; i++) {
+        const state = localStorage.key(i);
+        const activity = localStorage.getItem(state);
+
+        let historyBox = document.createElement('div');
+        historyBox.classList.add('card','result');
+        lsOutput.appendChild(historyBox);
+
+
+        lsOutput.innerHTML += `${state}: ${activity}<br/>`;
+    }
+}
