@@ -17,8 +17,12 @@ body {
     justify-content: center;
 }
 
-li{
-    border-spacing: 10px;
+#webCamCard {
+    width: 250px;
+}
+#webCamImg {
+    width: 100%;
+    margin: 0;
 }
     
 .dropdownBox {
@@ -26,13 +30,8 @@ li{
     margin-bottom: 1rem;
 }
 
-#webCamCard {
-    width: 250px;
-}
-
-#webCamImg {
-    width: 100%;
-    margin: 0;
+section {
+    margin-top:2rem;
 }
   
 #startCard {
