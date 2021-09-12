@@ -72,7 +72,6 @@ let displayResults = function() {
     }
     //Save current results as an array, then iterate over it to add 
     selectResults();
-
 };
 
 //retrieve info for parks in selected state (address, lat/long, and parkCode) to be able to do other API queries
@@ -145,7 +144,6 @@ function getWebCam(parkCode) {
             }
         })
         .then(function(data) {
-            console.log(data);
             if(data.data.length > 0) {
                 if(data.data[0].images.length > 0) {
                     camCardEl.style.display = 'block';
@@ -171,9 +169,11 @@ let feelsLikeEl = document.getElementById('feelsLike');
 let uvEl = document.getElementById('uvIndex');
 let lowEl = document.getElementById('low');
 let highEl = document.getElementById('high');
+let weatherCard = document.getElementById('weatherCard');
 
 //Display the current weather
 let displayWeather = function(current,today) {
+    weatherCard.style.display = 'block';
     iconEl.setAttribute('src','http://openweathermap.org/img/wn/' + current.weather[0].icon + '@2x.png');
     curTempEl.textContent = 'Currently: ' + Math.round(current.temp);
     feelsLikeEl.textContent = 'Feels like ' + Math.round(current.feels_like);
@@ -228,7 +228,11 @@ searchBtn.addEventListener('click',function(event) {
 let resetBtn = document.querySelector(".resetBtn");
 resetBtn.addEventListener("click", refreshPage)
 function refreshPage() {
-    window.location.reload();
+    destroyResults(); 
+    weatherCard.style.display = 'none';
+    webCamEl.style.display = 'none';
+    stateSelection.selectedIndex = 0;
+    activitySelection.selectedIndex = 0;
 } 
 
 //Local storage
