@@ -72,7 +72,6 @@ let displayResults = function() {
     }
     //Save current results as an array, then iterate over it to add 
     selectResults();
-
 };
 
 //retrieve info for parks in selected state (address, lat/long, and parkCode) to be able to do other API queries
@@ -145,7 +144,6 @@ function getWebCam(parkCode) {
             }
         })
         .then(function(data) {
-            console.log(data);
             if(data.data.length > 0) {
                 if(data.data[0].images.length > 0) {
                     camCardEl.style.display = 'block';
@@ -171,9 +169,11 @@ let feelsLikeEl = document.getElementById('feelsLike');
 let uvEl = document.getElementById('uvIndex');
 let lowEl = document.getElementById('low');
 let highEl = document.getElementById('high');
+let weatherCard = document.getElementById('weatherCard');
 
 //Display the current weather
 let displayWeather = function(current,today) {
+    weatherCard.style.display = 'block';
     iconEl.setAttribute('src','http://openweathermap.org/img/wn/' + current.weather[0].icon + '@2x.png');
     curTempEl.textContent = 'Currently: ' + Math.round(current.temp);
     feelsLikeEl.textContent = 'Feels like ' + Math.round(current.feels_like);
@@ -211,9 +211,7 @@ searchBtn.addEventListener('click',function(event) {
     getParksInfo();
 });
 
-
-
- window.addEventListener("load", function(event) {
+window.addEventListener("load", function(event) {
      console.log ("Is this working?")
 
      let searchURL = new URL(document.location);
@@ -221,19 +219,24 @@ searchBtn.addEventListener('click',function(event) {
      stateCode = searchURL.searchParams.get("q");
      activity = searchURL.searchParams.get("format");
 
-
      getParksInfo();
- })
+})
+
 // reset button on search results page, on click, refreshes screen
 let resetBtn = document.querySelector(".resetBtn");
 resetBtn.addEventListener("click", refreshPage)
 function refreshPage() {
-    window.location.reload();
+    destroyResults(); 
+    weatherCard.style.display = 'none';
+    webCamEl.style.display = 'none';
+    stateSelection.selectedIndex = 0;
+    activitySelection.selectedIndex = 0;
 } 
 
 //Local storage
 
 let lsOutput = document.getElementById('lsOutput');
+let historyBox;
 
 searchBtn.onclick = function(event) {
     const state = stateSelection.value;
@@ -245,25 +248,40 @@ searchBtn.onclick = function(event) {
     console.log(activity);
 
     if (state && activity) {
-        localStorage.setItem(state, activity);        
-        lsOutput.innerHTML += `${activitySelection.value} in ${stateSelection.value.slice(3)} <br/>`;
+        localStorage.setItem(stateCode, activity);        
+        let newHistory = document.createElement('div')
+        newHistory.classList.add('card');
+        newHistory.innerHTML += `${activitySelection.value} in ${stateSelection.value.slice(2)}`;
+        lsOutput.prepend(newHistory);
+        newHistory.setAttribute('data-state', state.slice(0, 2));
+        newHistory.setAttribute('data-activity', activity);
     }
-
 }
 
+//load search history form local storage
 pageLoad = function() {
     for (let i = 0; i <localStorage.length; i++) {
         const state = localStorage.key(i);
         const activity = localStorage.getItem(state);
 
-        let historyBox = document.createElement('div');
+        historyBox = document.createElement('div');
         historyBox.classList.add('card');
-        
-
-
-        lsOutput.innerHTML += `${activity} in  ${state.slice(3)}<br/>`;
-
+        historyBox.innerHTML += `${activity} in ${state.slice(2)}`;
+        lsOutput.prepend(historyBox);
+        historyBox.setAttribute('data-state', state.slice(0, 2));
+        historyBox.setAttribute('data-activity', activity);
     }
 }
-
 pageLoad();
+
+//Click on recent searches and get results
+lsOutput.addEventListener('click', function(event){
+
+    stateCode = event.target.dataset.state;
+    activity = event.target.dataset.activity;
+
+    destroyResults();
+    getParksInfo(); 
+})
+
+

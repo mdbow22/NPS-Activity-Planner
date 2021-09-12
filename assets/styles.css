@@ -7,17 +7,25 @@ body {
 .picBackground {
     background: url(./Pictures/denali-mtn-range.jpg)
 }
-  
+
+ol {
+    list-style-type: square;
+}
+
 .card {
-    /* min-height: 15rem;
-    min-width: 15rem; */
     flex: auto;
     flex-wrap: nowrap;
     justify-content: center;
 }
 
+#weatherCard {
+    display: none;
+    width: 250px;
+}
+
 #webCamCard {
     width: 250px;
+    display: none;
 }
 #webCamImg {
     width: 100%;
@@ -35,7 +43,7 @@ section {
   
 #startCard {
     background-color: rgb(241,238,238);
-    margin-top: 60%;
+    margin-top: 40%;
 }
 
 @media only screen and (max-width: 992px){
