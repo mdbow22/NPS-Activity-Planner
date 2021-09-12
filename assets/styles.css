@@ -17,8 +17,14 @@ body {
     justify-content: center;
 }
 
+#weatherCard {
+    display: none;
+    width: 250px;
+}
+
 #webCamCard {
     width: 250px;
+    display: none;
 }
 #webCamImg {
     width: 100%;

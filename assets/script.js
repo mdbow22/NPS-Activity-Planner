@@ -16,7 +16,8 @@ let imagesArray;
 let stateSelection = document.getElementById('stateSelection');
 let activitySelection = document.getElementById('activitySelection');
 let resultsContainer = document.getElementById('resultsContainer');
-let saveBtn = document.querySelector('.saveBtn');
+let searchBtn = document.querySelector('.searchBtn');
+
 let webCamEl = document.getElementById('webCamImg');
 let camCardEl = document.getElementById('webCamCard');
 
@@ -71,7 +72,6 @@ let displayResults = function() {
     }
     //Save current results as an array, then iterate over it to add 
     selectResults();
-
 };
 
 //retrieve info for parks in selected state (address, lat/long, and parkCode) to be able to do other API queries
@@ -144,7 +144,6 @@ function getWebCam(parkCode) {
             }
         })
         .then(function(data) {
-            console.log(data);
             if(data.data.length > 0) {
                 if(data.data[0].images.length > 0) {
                     camCardEl.style.display = 'block';
@@ -170,9 +169,11 @@ let feelsLikeEl = document.getElementById('feelsLike');
 let uvEl = document.getElementById('uvIndex');
 let lowEl = document.getElementById('low');
 let highEl = document.getElementById('high');
+let weatherCard = document.getElementById('weatherCard');
 
 //Display the current weather
 let displayWeather = function(current,today) {
+    weatherCard.style.display = 'block';
     iconEl.setAttribute('src','http://openweathermap.org/img/wn/' + current.weather[0].icon + '@2x.png');
     curTempEl.textContent = 'Currently: ' + Math.round(current.temp);
     feelsLikeEl.textContent = 'Feels like ' + Math.round(current.feels_like);
@@ -197,10 +198,12 @@ function getWeather(lat,lon) {
 
 //Event Listeners
 
-//Perform Search
-saveBtn.addEventListener('click',function(event) {
-    event.preventDefault();
 
+searchBtn.addEventListener('click',function(event) {
+    event.preventDefault();
+    console.log("Did this work?")
+
+    
     stateCode = stateSelection.value;
     activity = activitySelection.value;
 
@@ -208,18 +211,35 @@ saveBtn.addEventListener('click',function(event) {
     getParksInfo();
 });
 
+
+
+ window.addEventListener("load", function(event) {
+     console.log ("Is this working?")
+
+     let searchURL = new URL(document.location);
+
+     stateCode = searchURL.searchParams.get("q");
+     activity = searchURL.searchParams.get("format");
+
+
+     getParksInfo();
+ })
 // reset button on search results page, on click, refreshes screen
 let resetBtn = document.querySelector(".resetBtn");
 resetBtn.addEventListener("click", refreshPage)
 function refreshPage() {
-    window.location.reload();
+    destroyResults(); 
+    weatherCard.style.display = 'none';
+    webCamEl.style.display = 'none';
+    stateSelection.selectedIndex = 0;
+    activitySelection.selectedIndex = 0;
 } 
 
 //Local storage
 
 let lsOutput = document.getElementById('lsOutput');
 
-saveBtn.onclick = function(event) {
+searchBtn.onclick = function(event) {
     const state = stateSelection.value;
     const activity = activitySelection.value;
 
