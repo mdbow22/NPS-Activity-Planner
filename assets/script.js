@@ -228,7 +228,11 @@ searchBtn.addEventListener('click',function(event) {
 let resetBtn = document.querySelector(".resetBtn");
 resetBtn.addEventListener("click", refreshPage)
 function refreshPage() {
-    window.location.reload();
+    destroyResults(); 
+    weatherCard.style.display = 'none';
+    webCamEl.style.display = 'none';
+    stateSelection.selectedIndex = 0;
+    activitySelection.selectedIndex = 0;
 } 
 
 //Local storage
