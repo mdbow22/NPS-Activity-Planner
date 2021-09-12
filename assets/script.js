@@ -211,9 +211,7 @@ searchBtn.addEventListener('click',function(event) {
     getParksInfo();
 });
 
-
-
- window.addEventListener("load", function(event) {
+window.addEventListener("load", function(event) {
      console.log ("Is this working?")
 
      let searchURL = new URL(document.location);
@@ -221,9 +219,9 @@ searchBtn.addEventListener('click',function(event) {
      stateCode = searchURL.searchParams.get("q");
      activity = searchURL.searchParams.get("format");
 
-
      getParksInfo();
- })
+})
+
 // reset button on search results page, on click, refreshes screen
 let resetBtn = document.querySelector(".resetBtn");
 resetBtn.addEventListener("click", refreshPage)
@@ -238,6 +236,7 @@ function refreshPage() {
 //Local storage
 
 let lsOutput = document.getElementById('lsOutput');
+let historyBox;
 
 searchBtn.onclick = function(event) {
     const state = stateSelection.value;
@@ -249,25 +248,40 @@ searchBtn.onclick = function(event) {
     console.log(activity);
 
     if (state && activity) {
-        localStorage.setItem(state, activity);        
-        lsOutput.innerHTML += `${activitySelection.value} in ${stateSelection.value.slice(3)} <br/>`;
+        localStorage.setItem(stateCode, activity);        
+        let newHistory = document.createElement('div')
+        newHistory.classList.add('card');
+        newHistory.innerHTML += `${activitySelection.value} in ${stateSelection.value.slice(2)}`;
+        lsOutput.prepend(newHistory);
+        newHistory.setAttribute('data-state', state.slice(0, 2));
+        newHistory.setAttribute('data-activity', activity);
     }
-
 }
 
+//load search history form local storage
 pageLoad = function() {
     for (let i = 0; i <localStorage.length; i++) {
         const state = localStorage.key(i);
         const activity = localStorage.getItem(state);
 
-        let historyBox = document.createElement('div');
+        historyBox = document.createElement('div');
         historyBox.classList.add('card');
-        
-
-
-        lsOutput.innerHTML += `${activity} in  ${state.slice(3)}<br/>`;
-
+        historyBox.innerHTML += `${activity} in ${state.slice(2)}`;
+        lsOutput.prepend(historyBox);
+        historyBox.setAttribute('data-state', state.slice(0, 2));
+        historyBox.setAttribute('data-activity', activity);
     }
 }
-
 pageLoad();
+
+//Click on recent searches and get results
+lsOutput.addEventListener('click', function(event){
+
+    stateCode = event.target.dataset.state;
+    activity = event.target.dataset.activity;
+
+    destroyResults();
+    getParksInfo(); 
+})
+
+
