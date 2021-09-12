@@ -196,13 +196,17 @@ function getWeather(lat,lon) {
         });
 }
 
+let assignLocalStorage = function(state,act) {
+
+};
+
 //Event Listeners
 
 
 searchBtn.addEventListener('click',function(event) {
     event.preventDefault();
     console.log("Did this work?")
-
+    
     
     stateCode = stateSelection.value;
     activity = activitySelection.value;
