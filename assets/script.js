@@ -10,6 +10,8 @@ let activity;
 let selectedParks = [];
 let curResults = [];
 let imagesArray;
+let historyBox;
+let results;
 
 //Selectors
 
@@ -17,7 +19,7 @@ let stateSelection = document.getElementById('stateSelection');
 let activitySelection = document.getElementById('activitySelection');
 let resultsContainer = document.getElementById('resultsContainer');
 let searchBtn = document.querySelector('.searchBtn');
-
+let lsOutput = document.getElementById('lsOutput');
 let webCamEl = document.getElementById('webCamImg');
 let camCardEl = document.getElementById('webCamCard');
 
@@ -89,7 +91,7 @@ let getParksInfo = function() {
             }
         })
         .then(function(data) {
-
+            
             //get just the data array from the promise
             results = data.data;
 
@@ -110,7 +112,20 @@ let getParksInfo = function() {
                     }
                 }
             }
-            displayResults();
+            if (selectedParks.length === 0) {
+                //Create card for error
+                let resultBox = document.createElement('div');
+                resultBox.classList.add('card','result');
+                resultBox.setAttribute('data-resnum',0);
+                resultsContainer.appendChild(resultBox);
+
+                //Display Error Message
+                let errorTitle = document.createElement('h5');
+                errorTitle.textContent = 'No Results Found';
+                resultBox.appendChild(errorTitle);
+            } else {
+                displayResults();
+            }  
         });
 };
 
@@ -196,8 +211,17 @@ function getWeather(lat,lon) {
         });
 }
 
+//place the user's search into local storage
 let assignLocalStorage = function(state,act) {
-
+    if(state && act) {
+        localStorage.setItem(state, act);        
+        let newHistory = document.createElement('div')
+        newHistory.classList.add('card');
+        newHistory.innerHTML += `${act} in ${state.slice(2)}`;
+        lsOutput.prepend(newHistory);
+        newHistory.setAttribute('data-state', state.slice(0, 2));
+        newHistory.setAttribute('data-activity', activity);
+    }
 };
 
 //Event Listeners
@@ -206,13 +230,17 @@ let assignLocalStorage = function(state,act) {
 searchBtn.addEventListener('click',function(event) {
     event.preventDefault();
     console.log("Did this work?")
-    
+
     
     stateCode = stateSelection.value;
     activity = activitySelection.value;
 
+    //Remove past results to prevent conflict with new results
     destroyResults();
+    //get new search results
     getParksInfo();
+    //save search to localStorage
+    assignLocalStorage(stateCode,activity);
 });
 
 window.addEventListener("load", function(event) {
@@ -224,6 +252,7 @@ window.addEventListener("load", function(event) {
      activity = searchURL.searchParams.get("format");
 
      getParksInfo();
+     assignLocalStorage(stateCode,activity);
 })
 
 // reset button on search results page, on click, refreshes screen
@@ -236,31 +265,6 @@ function refreshPage() {
     stateSelection.selectedIndex = 0;
     activitySelection.selectedIndex = 0;
 } 
-
-//Local storage
-
-let lsOutput = document.getElementById('lsOutput');
-let historyBox;
-
-searchBtn.onclick = function(event) {
-    const state = stateSelection.value;
-    const activity = activitySelection.value;
-
-    event.preventDefault();
-
-    console.log(state);
-    console.log(activity);
-
-    if (state && activity) {
-        localStorage.setItem(stateCode, activity);        
-        let newHistory = document.createElement('div')
-        newHistory.classList.add('card');
-        newHistory.innerHTML += `${activitySelection.value} in ${stateSelection.value.slice(2)}`;
-        lsOutput.prepend(newHistory);
-        newHistory.setAttribute('data-state', state.slice(0, 2));
-        newHistory.setAttribute('data-activity', activity);
-    }
-}
 
 //load search history form local storage
 pageLoad = function() {
