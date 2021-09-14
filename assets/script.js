@@ -84,11 +84,7 @@ let getParksInfo = function() {
             if (response.status === 200) {
                 //if yes, convert to object
                 return response.json();
-            } else {
-                //if no, tell user that their search criteria wasn't found
-                alert('No results found');
-                return;
-            }
+            } 
         })
         .then(function(data) {
             
