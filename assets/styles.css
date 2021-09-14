@@ -1,3 +1,7 @@
+:root {
+    --bgImage: url(./Pictures/denali-mtn-range.jpg);
+}
+
 body {
     margin-top: 1rem;
     background-color: rgb(241, 238, 238);
@@ -5,7 +9,10 @@ body {
 }
 
 .picBackground {
-    background: url(./Pictures/denali-mtn-range.jpg)
+    background: var(--bgImage);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 ol {
