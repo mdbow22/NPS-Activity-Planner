@@ -14,6 +14,7 @@ ol {
 
 .card {
     flex: auto;
+    padding: 10px;
     flex-wrap: nowrap;
     justify-content: center;
 }
@@ -43,7 +44,7 @@ section {
   
 #startCard {
     background-color: rgb(241,238,238);
-    margin-top: 40%;
+    margin-top: 15%;
 }
 
 @media only screen and (max-width: 992px){
@@ -63,4 +64,27 @@ section {
     #startCard {
         margin-top:10%;
     }
+}
+
+h4{
+    text-align: center;
+    border-style: double;
+    font-weight: bold;
+    border-radius: 15px 50px 30px;
+    background: #73ad21;
+}
+.list-group{
+    margin: auto;
+    align-items: center;
+    text-align: center;
+}
+data-state{
+    text-align: center;
+}
+#IsOutput{
+    border-radius: 16px;
+    box-shadow: 10px 10px 8px #888888;
+}
+section{
+    text-align: center;
 }
