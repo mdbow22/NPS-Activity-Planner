@@ -1,4 +1,9 @@
+//Selectors
+
 let firstSearch = document.getElementById('firstSearch');
+let background = document.documentElement;
+
+//Event Listeners
 
 firstSearch.addEventListener('click',function(event) {
     event.preventDefault();
@@ -19,4 +24,14 @@ firstSearch.addEventListener('click',function(event) {
 
 
 
-})
+});
+
+//Randomize background image
+
+let bgImages = ['badlands-national-park.jpg','denali-mtn-range.jpg','denali-national-park.jpg','gibbon-falls.jpg','moose-grand-tetons-national-park.jpg','rocky-mountain-two-moose.jpg','rocky-mountain-wildflowers.jpg'];
+
+let bgRandomize = function() {
+    background.style.setProperty('--bgImage','url(./Pictures/' + bgImages[Math.floor(Math.random() * bgImages.length)] + ')');
+};
+
+bgRandomize();

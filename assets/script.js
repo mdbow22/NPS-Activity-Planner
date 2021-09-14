@@ -137,6 +137,9 @@ let destroyResults = function() {
         resultsContainer.removeChild(resultsContainer.firstChild);
     }
 
+    weatherCard.style.display = 'none';
+    camCardEl.style.display = 'none';
+
     //Destroy event listeners
     for (let i = 0; i < curResults.length; i++) {
         curResults[i].removeEventListener('click', getSideData);
